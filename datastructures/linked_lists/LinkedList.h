@@ -159,8 +159,8 @@ DataType LinkedList<DataType>::operator[](const uint64_t index)
 {
     if(index >= this->size())
     {
-        std::cout << "Index out of range" << std::endl;
-        exit;
+        std::cout << "Index out of range (" << index << " > " << this->size() << ")"<< std::endl;
+        abort();
     }
     SharedPtr<Node<DataType>> current = head_;
     uint64_t index_counter = 0;
