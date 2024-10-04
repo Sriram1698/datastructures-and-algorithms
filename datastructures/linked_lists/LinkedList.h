@@ -16,7 +16,7 @@ public:
   virtual DataType operator[](const uint64_t index);
 
   virtual void erase(const DataType &data);
-
+  virtual void sort();
   virtual void reverse();
   virtual bool empty() const;
   virtual size_t size() const;
@@ -214,6 +214,41 @@ template <typename DataType> bool LinkedList<DataType>::checkForLoop() {
     }
   }
   return false;
+}
+
+//////////////////////////////////////////////////////
+
+template <typename DataType> void LinkedList<DataType>::sort() {
+  if (this->empty()) {
+    return;
+  }
+
+  SharedPtr<Node<DataType>> new_head = head_;
+  SharedPtr<Node<DataType>> next_head = new_head->next();
+  SharedPtr<Node<DataType>> inserting_element = next_head;
+  new_head->next(nullptr);
+
+  while (inserting_element) {
+    SharedPtr<Node<DataType>> current = new_head;
+    SharedPtr<Node<DataType>> prev = nullptr;
+    while (current) {
+      if (current->data() > inserting_element->data()) {
+        break;
+      }
+      prev = current;
+      current = current->next();
+    }
+    next_head = inserting_element->next();
+    inserting_element->next(current);
+    if (prev) {
+      prev->next(inserting_element);
+    } else {
+      inserting_element->next(new_head);
+      new_head = inserting_element;
+    }
+    inserting_element = next_head;
+  }
+  head_ = new_head;
 }
 
 //////////////////////////////////////////////////////

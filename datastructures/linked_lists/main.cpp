@@ -5,14 +5,10 @@
 using std::vector;
 
 int main() {
-  vector<int> arr = {1, 2, 3, 4, 5};
+  vector<int> arr = {9, 0, 0, 1, 4, 4, 3, 9, 2, 2, 0};
   LinkedList<int> linked_list(arr.begin(), arr.end());
   linked_list.print();
-  linked_list.erase(3);
-  linked_list.print();
-  linked_list.insert(9, 4);
-  linked_list.print();
-  linked_list.reverse();
+  linked_list.sort();
   linked_list.print();
   return EXIT_SUCCESS;
 }
