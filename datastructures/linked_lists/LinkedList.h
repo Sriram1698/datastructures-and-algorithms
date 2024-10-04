@@ -24,6 +24,7 @@ public:
   virtual void print() const;
 
 protected:
+  virtual bool checkForLoop();
   virtual SharedPtr<Node<DataType>> search(const DataType &data);
   void incrementSize();
   void decrementSize();
@@ -192,6 +193,27 @@ template <typename DataType> void LinkedList<DataType>::reverse() {
     current = next;
   }
   head_ = prev;
+}
+
+//////////////////////////////////////////////////////
+
+template <typename DataType> bool LinkedList<DataType>::checkForLoop() {
+  if (this->empty()) {
+    return false;
+  }
+
+  SharedPtr<Node<DataType>> single_step_pointer = head_,
+                            double_step_pointer = head_;
+
+  while (double_step_pointer && double_step_pointer->next()) {
+    single_step_pointer = single_step_pointer->next();
+    double_step_pointer = double_step_pointer->next()->next();
+
+    if (single_step_pointer == double_step_pointer) {
+      return true;
+    }
+  }
+  return false;
 }
 
 //////////////////////////////////////////////////////
