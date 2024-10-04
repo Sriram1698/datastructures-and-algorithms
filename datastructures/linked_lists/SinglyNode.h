@@ -15,7 +15,7 @@ public:
   DataType data() const;
 
   void next(const SharedPtr<Node<DataType>> nxt);
-  void next(const DataType& dat);
+  void next(const DataType &dat);
 
   void data(const DataType &dat);
 
@@ -27,8 +27,7 @@ protected:
 //////////////////////////////////////////////////////
 
 template <typename DataType>
-Node<DataType>::Node(const DataType &dat,
-                     const SharedPtr<Node<DataType>> &nxt)
+Node<DataType>::Node(const DataType &dat, const SharedPtr<Node<DataType>> &nxt)
     : data_(dat), next_(nxt) {}
 
 //////////////////////////////////////////////////////
@@ -57,10 +56,8 @@ void Node<DataType>::next(const SharedPtr<Node<DataType>> nxt) {
 
 //////////////////////////////////////////////////////
 
-template <typename DataType>
-void Node<DataType>::next(const DataType& dat)
-{
-    next_ = MakeShared<Node<DataType> >(dat);
+template <typename DataType> void Node<DataType>::next(const DataType &dat) {
+  next_ = MakeShared<Node<DataType>>(dat);
 }
 
 //////////////////////////////////////////////////////

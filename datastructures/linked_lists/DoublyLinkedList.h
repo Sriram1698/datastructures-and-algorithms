@@ -18,7 +18,7 @@ public:
 
   void prev(const SharedPtr<DoublyNode<DataType>> prv);
   void prev(const DataType &dat);
-  
+
   SharedPtr<DoublyNode<DataType>> prev() const;
 
 protected:

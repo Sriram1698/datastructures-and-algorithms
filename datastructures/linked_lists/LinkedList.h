@@ -12,7 +12,7 @@ public:
   virtual ~LinkedList();
 
   virtual void insert(const DataType &data);
-  virtual void insert(const DataType& data, const uint64_t index);
+  virtual void insert(const DataType &data, const uint64_t index);
 
   virtual void erase(const DataType &data);
 
@@ -22,9 +22,8 @@ public:
   virtual void print() const;
 
 protected:
-
-    void incrementSize();
-    void decrementSize();
+  void incrementSize();
+  void decrementSize();
 
   SharedPtr<Node<DataType>> head_;
   size_t size_;
@@ -79,38 +78,35 @@ void LinkedList<DataType>::insert(const DataType &data) {
 //////////////////////////////////////////////////////
 
 template <typename DataType>
-void LinkedList<DataType>::insert(const DataType& data, const uint64_t index)
-{
-    if (index > this->size()){ return; }
-    if (head_) {
-        SharedPtr<Node<DataType>> current = head_;
-        SharedPtr<Node<DataType>> prev = nullptr;
-        int index_counter = 0;
-        while (current) {
-            if (index == index_counter)
-            {
-                break;
-            }
-            prev = current;
-            current = current->next();
-            index_counter++;
-        }
-        if (prev)
-        {
-            SharedPtr<Node<DataType>> temp = current;
-            prev->next(data);
-            SharedPtr<Node<DataType>> current = prev->next();
-            current->next(temp);
-        }
-        else
-        {
-            head_ = MakeShared<Node<DataType>>(data);
-            head_->next(current);
-        }
-    } else {
-        head_ = MakeShared<Node<DataType>>(data);
+void LinkedList<DataType>::insert(const DataType &data, const uint64_t index) {
+  if (index > this->size()) {
+    return;
+  }
+  if (head_) {
+    SharedPtr<Node<DataType>> current = head_;
+    SharedPtr<Node<DataType>> prev = nullptr;
+    int index_counter = 0;
+    while (current) {
+      if (index == index_counter) {
+        break;
+      }
+      prev = current;
+      current = current->next();
+      index_counter++;
     }
-    this->incrementSize();
+    if (prev) {
+      SharedPtr<Node<DataType>> temp = current;
+      prev->next(data);
+      SharedPtr<Node<DataType>> current = prev->next();
+      current->next(temp);
+    } else {
+      head_ = MakeShared<Node<DataType>>(data);
+      head_->next(current);
+    }
+  } else {
+    head_ = MakeShared<Node<DataType>>(data);
+  }
+  this->incrementSize();
 }
 
 //////////////////////////////////////////////////////
@@ -151,21 +147,16 @@ template <typename DataType> size_t LinkedList<DataType>::size() const {
 
 //////////////////////////////////////////////////////
 
-template <typename DataType>
-void LinkedList<DataType>::incrementSize()
-{
-    size_++;
+template <typename DataType> void LinkedList<DataType>::incrementSize() {
+  size_++;
 }
 
 //////////////////////////////////////////////////////
 
-template <typename DataType>
-void LinkedList<DataType>::decrementSize()
-{
-    if (!this->empty())
-    {
-        size_--;
-    }
+template <typename DataType> void LinkedList<DataType>::decrementSize() {
+  if (!this->empty()) {
+    size_--;
+  }
 }
 
 //////////////////////////////////////////////////////
