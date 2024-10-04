@@ -12,7 +12,7 @@ int main() {
   linked_list.print();
   linked_list.insert(9, 4);
   linked_list.print();
-  auto element = linked_list[13];
-  std::cout << element << std::endl;
+  linked_list.reverse();
+  linked_list.print();
   return EXIT_SUCCESS;
 }

@@ -13,12 +13,14 @@ public:
 
   virtual void insert(const DataType &data);
   virtual void insert(const DataType &data, const uint64_t index);
+  virtual DataType operator[](const uint64_t index);
 
   virtual void erase(const DataType &data);
+
+  virtual void reverse();
   virtual bool empty() const;
   virtual size_t size() const;
 
-  virtual DataType operator[](const uint64_t index);
   virtual void print() const;
 
 protected:
@@ -81,7 +83,9 @@ void LinkedList<DataType>::insert(const DataType &data) {
 template <typename DataType>
 void LinkedList<DataType>::insert(const DataType &data, const uint64_t index) {
   if (index > this->size()) {
-    return;
+    std::cout << "Can not insert element at " << index << " (> " << this->size()
+              << ")" << std::endl;
+    abort();
   }
   if (head_) {
     SharedPtr<Node<DataType>> current = head_;
@@ -155,25 +159,39 @@ SharedPtr<Node<DataType>> LinkedList<DataType>::search(const DataType &data) {
 //////////////////////////////////////////////////////
 
 template <typename DataType>
-DataType LinkedList<DataType>::operator[](const uint64_t index) 
-{
-    if(index >= this->size())
-    {
-        std::cout << "Index out of range (" << index << " > " << this->size() << ")"<< std::endl;
-        abort();
+DataType LinkedList<DataType>::operator[](const uint64_t index) {
+  if (index >= this->size()) {
+    std::cout << "Index out of range (" << index << " > " << this->size() << ")"
+              << std::endl;
+    abort();
+  }
+  SharedPtr<Node<DataType>> current = head_;
+  uint64_t index_counter = 0;
+  while (current) {
+    if (index == index_counter) {
+      return current->data();
     }
-    SharedPtr<Node<DataType>> current = head_;
-    uint64_t index_counter = 0;
-    while(current)
-    {
-        if (index == index_counter)
-        {
-            return current->data();
-        }
-        current = current->next();
-        index_counter++;
-    }
-    return DataType(NULL);
+    current = current->next();
+    index_counter++;
+  }
+  return DataType(NULL);
+}
+
+//////////////////////////////////////////////////////
+
+template <typename DataType> void LinkedList<DataType>::reverse() {
+  if (this->size() < 2) {
+    return;
+  }
+
+  SharedPtr<Node<DataType>> current = head_, prev = nullptr, next = nullptr;
+  while (current) {
+    next = current->next();
+    current->next(prev);
+    prev = current;
+    current = next;
+  }
+  head_ = prev;
 }
 
 //////////////////////////////////////////////////////
