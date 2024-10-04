@@ -15,13 +15,14 @@ public:
   virtual void insert(const DataType &data, const uint64_t index);
 
   virtual void erase(const DataType &data);
-
   virtual bool empty() const;
   virtual size_t size() const;
 
+  virtual DataType operator[](const uint64_t index);
   virtual void print() const;
 
 protected:
+  virtual SharedPtr<Node<DataType>> search(const DataType &data);
   void incrementSize();
   void decrementSize();
 
@@ -85,7 +86,7 @@ void LinkedList<DataType>::insert(const DataType &data, const uint64_t index) {
   if (head_) {
     SharedPtr<Node<DataType>> current = head_;
     SharedPtr<Node<DataType>> prev = nullptr;
-    int index_counter = 0;
+    uint64_t index_counter = 0;
     while (current) {
       if (index == index_counter) {
         break;
@@ -131,6 +132,48 @@ void LinkedList<DataType>::erase(const DataType &data) {
     prev = current;
     current = current->next();
   }
+}
+
+//////////////////////////////////////////////////////
+
+template <typename DataType>
+SharedPtr<Node<DataType>> LinkedList<DataType>::search(const DataType &data) {
+  if (this->empty()) {
+    return nullptr;
+  }
+
+  SharedPtr<Node<DataType>> current = head_;
+  while (current) {
+    if (current->data() == data) {
+      return current;
+    }
+    current = current->next();
+  }
+  return nullptr;
+}
+
+//////////////////////////////////////////////////////
+
+template <typename DataType>
+DataType LinkedList<DataType>::operator[](const uint64_t index) 
+{
+    if(index >= this->size())
+    {
+        std::cout << "Index out of range" << std::endl;
+        exit;
+    }
+    SharedPtr<Node<DataType>> current = head_;
+    uint64_t index_counter = 0;
+    while(current)
+    {
+        if (index == index_counter)
+        {
+            return current->data();
+        }
+        current = current->next();
+        index_counter++;
+    }
+    return DataType(NULL);
 }
 
 //////////////////////////////////////////////////////
