@@ -6,13 +6,15 @@ template <typename DataType> class LinkedList {
 public:
   LinkedList();
   LinkedList(const DataType &data);
-
+  LinkedList(const LinkedList<DataType> &list);
   template <typename Iterator> LinkedList(Iterator begin, Iterator end);
 
   virtual ~LinkedList();
 
   virtual void insert(const DataType &data);
   virtual void insert(const DataType &data, const uint64_t index);
+  virtual void merge(const LinkedList<DataType> &list);
+
   virtual DataType operator[](const uint64_t index);
 
   virtual void erase(const DataType &data);
@@ -47,6 +49,14 @@ LinkedList<DataType>::LinkedList(const DataType &data)
 //////////////////////////////////////////////////////
 
 template <typename DataType>
+LinkedList<DataType>::LinkedList(const LinkedList<DataType> &list) {
+  head_ = list.head_;
+  size_ = list.size_;
+}
+
+//////////////////////////////////////////////////////
+
+template <typename DataType>
 template <typename Iterator>
 LinkedList<DataType>::LinkedList(Iterator begin, Iterator end)
     : head_(nullptr), size_(0) {
@@ -77,6 +87,34 @@ void LinkedList<DataType>::insert(const DataType &data) {
     head_ = MakeShared<Node<DataType>>(data);
   }
   this->incrementSize();
+}
+
+//////////////////////////////////////////////////////
+
+template <typename DataType>
+void LinkedList<DataType>::merge(const LinkedList<DataType> &list) {
+  if (list.empty()) {
+    return;
+  } else if (this->empty()) {
+    this->head_ = list.head_;
+    return;
+  }
+  SharedPtr<Node<DataType>> current = this->head_;
+  while (current) {
+    if (!current->next()) {
+      break;
+    }
+    current = current->next();
+  }
+
+  if (current) {
+    //! This is an inefficient merge. This has to be updated with optimized
+    //! algorithm
+    current->next(list.head_);
+    this->sort();
+  } else {
+    this->head_ = list.head_;
+  }
 }
 
 //////////////////////////////////////////////////////
