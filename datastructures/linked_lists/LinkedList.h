@@ -7,6 +7,7 @@ public:
   LinkedList();
   LinkedList(const DataType &data);
   LinkedList(const LinkedList<DataType> &list);
+  LinkedList(const SharedPtr<Node<DataType>> &node);
   template <typename Iterator> LinkedList(Iterator begin, Iterator end);
 
   virtual ~LinkedList();
@@ -16,7 +17,7 @@ public:
   virtual void merge(const LinkedList<DataType> &list);
 
   virtual DataType operator[](const uint64_t index);
-
+  virtual SharedPtr<Node<DataType>> head() const;
   virtual void erase(const DataType &data);
   virtual void sort();
   virtual void reverse();
@@ -26,6 +27,7 @@ public:
   virtual void print() const;
 
 protected:
+  virtual void calculateSize();
   virtual bool checkForLoop();
   virtual SharedPtr<Node<DataType>> search(const DataType &data);
   void incrementSize();
@@ -52,6 +54,15 @@ template <typename DataType>
 LinkedList<DataType>::LinkedList(const LinkedList<DataType> &list) {
   head_ = list.head_;
   size_ = list.size_;
+}
+
+//////////////////////////////////////////////////////
+
+template <typename DataType>
+LinkedList<DataType>::LinkedList(const SharedPtr<Node<DataType>> &node)
+    : head_(node) 
+{
+  this->calculateSize();
 }
 
 //////////////////////////////////////////////////////
@@ -218,6 +229,13 @@ DataType LinkedList<DataType>::operator[](const uint64_t index) {
 
 //////////////////////////////////////////////////////
 
+template <typename DataType>
+SharedPtr<Node<DataType>> LinkedList<DataType>::head() const {
+  return this->head_;
+}
+
+//////////////////////////////////////////////////////
+
 template <typename DataType> void LinkedList<DataType>::reverse() {
   if (this->size() < 2) {
     return;
@@ -287,6 +305,20 @@ template <typename DataType> void LinkedList<DataType>::sort() {
     inserting_element = next_head;
   }
   head_ = new_head;
+}
+
+//////////////////////////////////////////////////////
+template <typename DataType> void LinkedList<DataType>::calculateSize() {
+  this->size_ = 0;
+  if (!this->head_) {
+    return;
+  }
+
+  auto current = this->head_;
+  while (current) {
+    this->incrementSize();
+    current = current->next();
+  }
 }
 
 //////////////////////////////////////////////////////
