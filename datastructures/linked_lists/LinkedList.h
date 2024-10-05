@@ -15,6 +15,7 @@ public:
   virtual void insert(const DataType &data);
   virtual void insert(const DataType &data, const uint64_t index);
   virtual void merge(const LinkedList<DataType> &list);
+  virtual void head(const SharedPtr<Node<DataType>> node);
 
   virtual DataType operator[](const uint64_t index);
   virtual SharedPtr<Node<DataType>> head() const;
@@ -60,8 +61,7 @@ LinkedList<DataType>::LinkedList(const LinkedList<DataType> &list) {
 
 template <typename DataType>
 LinkedList<DataType>::LinkedList(const SharedPtr<Node<DataType>> &node)
-    : head_(node) 
-{
+    : head_(node) {
   this->calculateSize();
 }
 
@@ -126,6 +126,14 @@ void LinkedList<DataType>::merge(const LinkedList<DataType> &list) {
   } else {
     this->head_ = list.head_;
   }
+}
+
+//////////////////////////////////////////////////////
+
+template <typename DataType>
+void LinkedList<DataType>::head(const SharedPtr<Node<DataType>> node) 
+{
+  this->head_ = node;
 }
 
 //////////////////////////////////////////////////////
