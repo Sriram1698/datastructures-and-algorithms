@@ -27,4 +27,5 @@ int main() {
     std::cout << element << ", ";
   }
   std::cout << "]" << std::endl;
+  return EXIT_SUCCESS;
 }
