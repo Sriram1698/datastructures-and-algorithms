@@ -17,7 +17,8 @@ public:
   virtual void merge(const LinkedList<DataType> &list);
   virtual void head(const SharedPtr<Node<DataType>> node);
 
-  virtual DataType operator[](const uint64_t index);
+  virtual DataType operator[](const uint64_t index) const;
+  virtual DataType at(const uint64_t index) const;
   virtual SharedPtr<Node<DataType>> head() const;
   virtual void erase(const DataType &data);
   virtual void remove(const uint64_t index);
@@ -204,6 +205,7 @@ void LinkedList<DataType>::remove(const uint64_t index) {
     return;
   } else if (index == 0) {
     this->head_ = this->head_->next();
+    this->decrementSize();
     return;
   }
 
@@ -244,7 +246,7 @@ SharedPtr<Node<DataType>> LinkedList<DataType>::search(const DataType &data) {
 //////////////////////////////////////////////////////
 
 template <typename DataType>
-DataType LinkedList<DataType>::operator[](const uint64_t index) {
+DataType LinkedList<DataType>::operator[](const uint64_t index) const {
   if (index >= this->size()) {
     std::cout << "Index out of range (" << index << " > " << this->size() << ")"
               << std::endl;
@@ -260,6 +262,13 @@ DataType LinkedList<DataType>::operator[](const uint64_t index) {
     index_counter++;
   }
   return DataType(NULL);
+}
+
+//////////////////////////////////////////////////////
+
+template <typename DataType>
+DataType LinkedList<DataType>::at(const uint64_t index) const {
+  return this->operator[](index);
 }
 
 //////////////////////////////////////////////////////
