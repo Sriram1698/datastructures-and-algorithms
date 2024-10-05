@@ -20,6 +20,7 @@ public:
   virtual DataType operator[](const uint64_t index);
   virtual SharedPtr<Node<DataType>> head() const;
   virtual void erase(const DataType &data);
+  virtual void remove(const uint64_t index);
   virtual void sort();
   virtual void reverse();
   virtual bool empty() const;
@@ -131,8 +132,7 @@ void LinkedList<DataType>::merge(const LinkedList<DataType> &list) {
 //////////////////////////////////////////////////////
 
 template <typename DataType>
-void LinkedList<DataType>::head(const SharedPtr<Node<DataType>> node) 
-{
+void LinkedList<DataType>::head(const SharedPtr<Node<DataType>> node) {
   this->head_ = node;
 }
 
@@ -193,6 +193,33 @@ void LinkedList<DataType>::erase(const DataType &data) {
     }
     prev = current;
     current = current->next();
+  }
+}
+
+//////////////////////////////////////////////////////
+
+template <typename DataType>
+void LinkedList<DataType>::remove(const uint64_t index) {
+  if (index >= this->size()) {
+    return;
+  } else if (index == 0) {
+    this->head_ = this->head_->next();
+    return;
+  }
+
+  uint64_t index_counter = 1;
+  SharedPtr<Node<DataType>> prev = head_;
+  SharedPtr<Node<DataType>> current = head_->next();
+
+  while (current) {
+    if (index == index_counter) {
+      prev->next(current->next());
+      this->decrementSize();
+      return;
+    }
+    prev = current;
+    current = current->next();
+    index_counter++;
   }
 }
 
