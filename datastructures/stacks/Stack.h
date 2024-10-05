@@ -8,6 +8,7 @@ public:
 
   void push(const DataType &data);
   void pop();
+  void reverse();
 
   DataType top() const;
   size_t size() const;
@@ -42,6 +43,11 @@ template <typename DataType> void Stack<DataType>::pop() {
   this->list_.remove(0);
 }
 
+//////////////////////////////////////////////////////
+
+template <typename DataType> void Stack<DataType>::reverse() {
+  this->list_.reverse();
+}
 //////////////////////////////////////////////////////
 
 template <typename DataType> DataType Stack<DataType>::top() const {

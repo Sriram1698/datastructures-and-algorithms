@@ -11,6 +11,8 @@ int main() {
     stk.push(element);
   }
   stk.print();
+  stk.reverse();
+  stk.print();
   uint16_t pop_k_elements = 3;
   for (uint16_t i = 0; i < pop_k_elements; i++) {
     stk.pop();
