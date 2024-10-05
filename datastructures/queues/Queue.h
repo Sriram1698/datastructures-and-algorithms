@@ -16,7 +16,7 @@ public:
 
   void print() const;
 
-private:
+protected:
   LinkedList<DataType> list_;
 };
 
