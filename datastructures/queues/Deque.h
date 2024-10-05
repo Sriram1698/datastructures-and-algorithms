@@ -6,11 +6,11 @@ public:
   Deque();
   Deque(const DataType &data);
 
-  void push_front(const DataType &data);
-  void push_back(const DataType &data);
+  void pushFront(const DataType &data);
+  void pushBack(const DataType &data);
 
-  void pop_front();
-  void pop_back();
+  void popFront();
+  void popBack();
 
   void reverse();
 
@@ -35,26 +35,26 @@ Deque<DataType>::Deque(const DataType &data) : Queue<DataType>(data) {}
 //////////////////////////////////////////////////////
 
 template <typename DataType>
-void Deque<DataType>::push_front(const DataType &data) {
+void Deque<DataType>::pushFront(const DataType &data) {
   this->list_.insert(data, 0);
 }
 
 //////////////////////////////////////////////////////
 
 template <typename DataType>
-void Deque<DataType>::push_back(const DataType &data) {
+void Deque<DataType>::pushBack(const DataType &data) {
   this->list_.insert(data);
 }
 
 //////////////////////////////////////////////////////
 
-template <typename DataType> void Deque<DataType>::pop_front() {
+template <typename DataType> void Deque<DataType>::popFront() {
   this->list_.remove(0);
 }
 
 //////////////////////////////////////////////////////
 
-template <typename DataType> void Deque<DataType>::pop_back() {
+template <typename DataType> void Deque<DataType>::popBack() {
   this->list_.remove(this->list_.size() - 1);
 }
 

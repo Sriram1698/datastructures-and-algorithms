@@ -8,18 +8,18 @@ int main() {
 
   Deque<int> dque;
   for (const auto element : arr) {
-    dque.push_back(element);
+    dque.pushBack(element);
   }
   dque.print();
 
   dque.reverse();
   dque.print();
 
-  dque.pop_front();
-  dque.pop_back();
-  dque.push_front(99);
-  dque.push_back(-99);
+  dque.popFront();
+  dque.popBack();
+  dque.pushFront(99);
+  dque.pushBack(-99);
   dque.print();
-  
+
   return EXIT_SUCCESS;
 }
