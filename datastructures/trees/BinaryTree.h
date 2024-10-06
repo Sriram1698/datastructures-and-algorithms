@@ -56,7 +56,7 @@ void binary_tree::BinaryTree<DataType>::remove(const DataType &data) {}
 
 template <typename DataType>
 vector<DataType>
-binary_tree::BinaryTree<DataType>::path(const DataType &data) const {}
+binary_tree::BinaryTree<DataType>::path(const DataType &data) const { return {}; }
 
 //////////////////////////////////////////////////////
 
