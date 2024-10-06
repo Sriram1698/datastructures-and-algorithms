@@ -16,7 +16,9 @@ public:
 
   virtual void insert(const DataType &data);
   virtual void remove(const DataType &data);
+  virtual bool search(const DataType &data);
 
+  virtual size_t diameter() const;
   virtual vector<DataType> path(const DataType &data) const;
   virtual void print() const;
 
@@ -55,8 +57,24 @@ void binary_tree::BinaryTree<DataType>::remove(const DataType &data) {}
 //////////////////////////////////////////////////////
 
 template <typename DataType>
+bool binary_tree::BinaryTree<DataType>::search(const DataType &data) {
+  return false;
+}
+
+//////////////////////////////////////////////////////
+
+template <typename DataType>
+size_t binary_tree::BinaryTree<DataType>::diameter() const {
+  return 0;
+}
+
+//////////////////////////////////////////////////////
+
+template <typename DataType>
 vector<DataType>
-binary_tree::BinaryTree<DataType>::path(const DataType &data) const { return {}; }
+binary_tree::BinaryTree<DataType>::path(const DataType &data) const {
+  return {};
+}
 
 //////////////////////////////////////////////////////
 
