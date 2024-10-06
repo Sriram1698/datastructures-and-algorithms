@@ -326,7 +326,7 @@ template <typename DataType> void LinkedList<DataType>::sort() {
   SharedPtr<Node<DataType>> new_head = head_;
   SharedPtr<Node<DataType>> next_head = new_head->next();
   SharedPtr<Node<DataType>> inserting_element = next_head;
-  new_head->next(nullptr);
+  new_head->next(SharedPtr<Node<DataType>>(nullptr));
 
   while (inserting_element) {
     SharedPtr<Node<DataType>> current = new_head;
