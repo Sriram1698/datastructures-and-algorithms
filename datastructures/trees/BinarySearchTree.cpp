@@ -1,5 +1,5 @@
-#include "../queues/Queue.h"
 #include "BinarySearchTree.h"
+#include "../queues/Queue.h"
 #include <vector>
 
 using std::vector;
@@ -7,7 +7,7 @@ using std::vector;
 template <typename DataType>
 binary_tree::BinarySearchTree<DataType>
 createBSTree(const vector<DataType> &arr) {
-  if (arr.size() < 1) {
+  if (arr.empty()) {
     binary_tree::BinarySearchTree<DataType>();
   }
   binary_tree::BinarySearchTree<DataType> bs_tree(arr[0]);
@@ -29,10 +29,12 @@ int main() {
   tree.remove(2);
   tree.print();
   tree.insert(12);
+  tree.insert(12);
   tree.print();
   tree.remove(8);
   tree.print();
   tree.remove(1);
   tree.print();
+  std::cout << "Diameter of tree: " << tree.diameter() << std::endl;
   return EXIT_SUCCESS;
 }
